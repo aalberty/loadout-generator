@@ -10,3 +10,10 @@
 - function to return loadouts given a specific set of tier criteria for each stat  
 	- Break down into a smaller function that looks at a single stat and determines if it fits a set of criteria  
 		- Max tier, min tier, exotic allowed 
+
+
+
+
+## TODO
+
+- [ ] Loadout class stubbed out
