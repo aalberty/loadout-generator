@@ -36,7 +36,8 @@ class Loadout:
         stat - string identifying what stat is being modified
         value - positive or negative integer to be added to the specified stat
         """
-        pass
+
+        self.stats[stat]['value']+=value
 
     def __str__(self):
         s = '''
