@@ -30,6 +30,14 @@ class Loadout:
         }
     
 
+    def add_modifiers(self, mods):
+        """
+        mods - comes in form {'<stat_name>': <mod_value>, '<stat_name>': <mod_value>...}
+        """
+        for stat in mods:
+            self.add_modifier(stat, mods[stat])
+
+
     def add_modifier(self, stat, value):
         """
         self - this instance of the Loadout class
@@ -40,26 +48,25 @@ class Loadout:
         self.stats[stat]['value']+=value
 
     def __str__(self):
-        s = '''
-            Name: {name}
+        s = '''Name: {name}
 
-            Mobility: {mobility}
-            Resilience: {resilience}
-            Recovery: {recovery}
+Mobility: {mobility}
+Resilience: {resilience}
+Recovery: {recovery}
 
-            Discipline: {discipline}
-            Intellect: {intellect}
-            Strength: {strength}
+Discipline: {discipline}
+Intellect: {intellect}
+Strength: {strength}
 
-            Total: {total}
-            '''.format(
-                name=self.name,
-                mobility=str(self.stats['mobility']['value']),
-                resilience=str(self.stats['resilience']['value']),
-                recovery=str(self.stats['recovery']['value']),
-                discipline=str(self.stats['discipline']['value']),
-                intellect=str(self.stats['intellect']['value']),
-                strength=str(self.stats['strength']['value']),
-                total=str(self.stats['total']),
-            )
+Total: {total}
+'''.format(
+    name=self.name,
+    mobility=str(self.stats['mobility']['value']),
+    resilience=str(self.stats['resilience']['value']),
+    recovery=str(self.stats['recovery']['value']),
+    discipline=str(self.stats['discipline']['value']),
+    intellect=str(self.stats['intellect']['value']),
+    strength=str(self.stats['strength']['value']),
+    total=str(self.stats['total']),
+)
         return s
