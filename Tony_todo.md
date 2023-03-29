@@ -14,6 +14,7 @@
 - Generate all possible loadouts given a class' armor set  
 - Obj rep of a loadout to be stored in a file  
 - Armor: exotic attribute  
+- Set up tests for test driven development for Sif's pieces
 
 ## Done  ##  
 - Loadout class stubbed out  
