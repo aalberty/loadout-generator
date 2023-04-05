@@ -1,5 +1,11 @@
 class Loadout:
-    def __init__(self, name):
+    def __init__(self, name, armor_set=False):
+        self.armor = {}
+        self.armor['helmet'] = armor_set['Helmet'] or False
+        self.armor['gauntlet'] = armor_set['Gauntlets'] or False
+        self.armor['chest_armor'] = armor_set['Chest Armor'] or False
+        self.armor['leg_armor'] = armor_set['Leg Armor'] or False
+        self.armor['class_item'] = armor_set['citem'] or False
         self.name = name
         self.stats = {
             'mobility': {

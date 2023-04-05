@@ -11,6 +11,7 @@
 	- add_modifier: recalc total after each operation
 - set_stat function
 	- add_modifier: utilize the set stat function
+- given a list of armor pieces, calculate the stat values, totals, and tiers
 - Generate all possible loadouts given a class' armor set  
 - Obj rep of a loadout to be stored in a file  
 - Armor: exotic attribute  

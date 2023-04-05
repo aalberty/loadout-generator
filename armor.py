@@ -1,5 +1,5 @@
 class Armor:
-    def __init__(self, name, tier, item_type, equipable, power, power_limit, stats):
+    def __init__(self, name, id, tier, item_type, equipable, power, power_limit, stats):
         self.name = name
         self.tier = tier
         self.type = item_type
@@ -7,9 +7,13 @@ class Armor:
         self.power = power
         self.power_limit = power_limit
         self.stats = stats
+        self.id = id
 
     def __str__(self):
         return self.name
+        
+    def to_json(self):
+        item = {}
     
     @classmethod
     def fromCSVFile(cls, filename):
@@ -53,6 +57,7 @@ def loadCSV(filename):
         }
         item = Armor(
             name=raw_item[0],
+            id=raw_item[2],
             tier=raw_item[4],
             item_type=raw_item[5],
             equipable=raw_item[7],
