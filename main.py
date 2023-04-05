@@ -1,5 +1,4 @@
-import armor
-items = armor.Armor.fromCSVFile('sample.csv')
+import armor, loadout
 # Sort by type
 types = ["Helmet", "Gauntlets", "Chest Armor", "Leg Armor"]
 class_item_types = {
@@ -8,9 +7,11 @@ class_item_types = {
     "titan": "Titan Mark"
 }
 
-def loadClassArmor(guardian_class):
+armor_types = ['helmets', 'gauntlets', 'chest', 'leg', 'citem']
+
+def loadClassArmor(all_armor, guardian_class):
     class_item_type = class_item_types[guardian_class.lower()]
-    class_armor = list(filter(lambda x: x.equipable.lower() == guardian_class.lower(), items))
+    class_armor = list(filter(lambda x: x.equipable.lower() == guardian_class.lower(), all_armor))
 
     helmets = filter(lambda x: x.type == types[0], class_armor)
     gauntlets = filter(lambda x: x.type == types[1], class_armor)
@@ -26,29 +27,36 @@ def loadClassArmor(guardian_class):
         "citem": list(citem)
         }
 
+def buildLoadouts(armor_sets):
+    loadouts = []
+    index = 0
+    for armor_set in armor_sets:
+        loadouts.append(loadout.Loadout('sample_set_' + str(index), armor_set))
+        index += 1
+    return loadouts
 
-
-# index == 5 return list as a loadout
-
-# else, add next armor piece based on index
-armor_types = ['helmets', 'gauntlets', 'chest', 'leg', 'citem']
-
-def buildLoadouts():
-    pass
-
-loadoutObjs = []
-def loopArmor(classArmorList):
+def loopArmor(classArmorList, armor_sets=[]):
     for helmet in classArmorList['helmets']:
         for gauntlet in classArmorList['gauntlets']:
             for chest in classArmorList['chest']:
                 for leg in classArmorList['leg']:
                     for citem in classArmorList['citem']:
-                        loadoutObjs.append({
+                        armor_sets.append({
                             'Helmet': helmet,
                             'Gauntlets': gauntlet,
                             'Chest Armor': chest,
                             'Leg Armor': leg,
                             'citem': citem
                         })
+    return armor_sets
+
+
+items = armor.Armor.fromCSVFile('sample.csv')
+h = loadClassArmor(items, 'hunter')
+armor_sets = loopArmor(h)
+loadouts = buildLoadouts(armor_sets)
+
+
+
 
 
