@@ -1,40 +1,19 @@
 class Loadout:
+
     def __init__(self, name, armor_set=False):
-        self.armor = {}
-        self.armor['helmet'] = armor_set['Helmet'] or False
-        self.armor['gauntlet'] = armor_set['Gauntlets'] or False
-        self.armor['chest_armor'] = armor_set['Chest Armor'] or False
-        self.armor['leg_armor'] = armor_set['Leg Armor'] or False
-        self.armor['class_item'] = armor_set['citem'] or False
         self.name = name
-        self.stats = {
-            'mobility': {
-                'value': 0,
-                'tier': 0
-            },
-            'resilience': {
-                'value': 0,
-                'tier': 0
-            },
-            'recovery': {
-                'value': 0,
-                'tier': 0
-            },
-            'discipline': {
-                'value': 0,
-                'tier': 0
-            },
-            'intellect': {
-                'value': 0,
-                'tier': 0
-            },
-            'strength': {
-                'value': 0,
-                'tier': 0
-            },
-            'total': 0
-        }
-    
+        self.armor = {}
+        self.stats = self.__stat_factory()
+
+        if armor_set is not False:
+            self.armor['helmet'] = armor_set['Helmet']
+            self.armor['gauntlet'] = armor_set['Gauntlets']
+            self.armor['chest_armor'] = armor_set['Chest Armor']
+            self.armor['leg_armor'] = armor_set['Leg Armor']
+            self.armor['class_item'] = armor_set['citem']
+            self.__set_stats_from_armor(self.armor)
+            return
+
 
     def add_modifiers(self, mods):
         """
@@ -42,6 +21,7 @@ class Loadout:
         """
         for stat in mods:
             self.add_modifier(stat, mods[stat])
+            return
 
 
     def add_modifier(self, stat, value):
@@ -52,6 +32,52 @@ class Loadout:
         """
 
         self.stats[stat]['value']+=value
+        return
+
+    # INTERNAL
+    def __set_stats_from_armor(self, armor):
+        if type(armor) == type({}):
+            armor = list(armor.values())
+        
+        for item in armor:
+            armor_stats = item.stats.items()
+            for s,v in armor_stats:
+                if s == 'total':
+                    pass
+                else:
+                    val = int(v)
+                    self.stats[s]['value'] = self.stats[s]['value'] + val
+                    #self.stats[s]['tier'] = __calculateStatTier(self.stats[stat]['value'])
+        return
+
+    # INTERNAL
+    def __stat_factory(self):
+        return {
+                'mobility': {
+                    'value': 0,
+                    'tier': 0
+                },
+                'resilience': {
+                    'value': 0,
+                    'tier': 0
+                },
+                'recovery': {
+                    'value': 0,
+                    'tier': 0
+                },
+                'discipline': {
+                    'value': 0,
+                    'tier': 0
+                },
+                'intellect': {
+                    'value': 0,
+                    'tier': 0
+                },
+                'strength': {
+                    'value': 0,
+                    'tier': 0
+                }
+            }
 
     def __str__(self):
         s = '''Name: {name}
@@ -78,11 +104,15 @@ Total: {total}
         return s
 
     @classmethod
-    def calculateLoadoutTiers(cls, loadout):
-        pass
+    def calculate_stat_tier(cls, stat_value):
+        """
+        stat_value - integer value of a specific stat
+        returns the tier (0-10) of the given stat_value
+        """
+        return __calculate_stat_tier(stat_value)
 
-    @classmethod
-    def calculateStatTier(cls, stat_value):
+    
+    def __calculate_stat_tier(self, stat_value):
         tier = 0
         # If stat_value <= 9, tier=0
         # If 10 <= stat_tier <= 19, tier=1
@@ -98,3 +128,4 @@ Total: {total}
             tier = 3
         #END DONT DO THIS
         return tier
+

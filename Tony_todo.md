@@ -5,12 +5,8 @@
 		- Max tier, min tier, exotic allowed 
 
 ## TODO ##  
-- Stub tier function for loadout  
-    - 0 <= tier_value <= 10
-- func to calc total
-	- add_modifier: recalc total after each operation
-- set_stat function
-	- add_modifier: utilize the set stat function
+
+- add_modifier function: perform the addition on the total as well
 - given a list of armor pieces, calculate the stat values, totals, and tiers
 - Generate all possible loadouts given a class' armor set  
 - Obj rep of a loadout to be stored in a file  
@@ -20,3 +16,5 @@
 ## Done  ##  
 - Loadout class stubbed out  
 - given a stat obj, perform all updates to the loadout (loop add_modifier)
+- Stub tier function for loadout  
+    - 0 <= tier_value <= 10
