@@ -76,3 +76,25 @@ Total: {total}
     total=str(self.stats['total']),
 )
         return s
+
+    @classmethod
+    def calculateLoadoutTiers(cls, loadout):
+        pass
+
+    @classmethod
+    def calculateStatTier(cls, stat_value):
+        tier = 0
+        # If stat_value <= 9, tier=0
+        # If 10 <= stat_tier <= 19, tier=1
+        #.
+        #.
+        #.
+        # If 100 <= stat_tier, tier=10
+
+        #DONT DO THIS
+        if stat_value >= 20 and stat_value <=29:
+            tier = 2
+        elif stat_value >= 30 and stat_value <=39:
+            tier = 3
+        #END DONT DO THIS
+        return tier
