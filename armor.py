@@ -2,6 +2,7 @@ class Armor:
     def __init__(self, name, id, tier, item_type, equipable, power, power_limit, stats):
         self.name = name
         self.tier = tier
+        self.exotic = self.tier == 'Exotic'
         self.type = item_type
         self.equipable = equipable
         self.power = power
@@ -19,25 +20,6 @@ class Armor:
     def fromCSVFile(cls, filename):
         return loadCSV(filename)
 
-    @classmethod
-    def getHunterItems(cls, items):
-        return getClassItems(items, 'Hunter')
-
-    @classmethod
-    def getWarlockItems(cls, items):
-        return getClassItems(items, 'Warlock')
-
-    @classmethod
-    def getTitanItems(cls, items):
-        return getClassItems(items, 'Titan')  
-        
-
-def getClassItems(items, classname):
-    filteredItems = []
-    for item in items:
-        if item.equipable == classname:
-            filteredItems.append(item)
-    return filteredItems
 
 def loadCSV(filename):
     file = open(filename, 'r')
